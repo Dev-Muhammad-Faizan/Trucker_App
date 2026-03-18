@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../core/theme.dart';
-import '../../widgets/test/job_card.dart';
+import '../../data/mock_jobs.dart';
+import '../../widgets/Header.dart';
+import '../../widgets/broker/job_card.dart';
 
 class BrokerJobsTab extends StatefulWidget {
   const BrokerJobsTab({super.key});
@@ -13,41 +15,134 @@ class _BrokerJobsTabState extends State<BrokerJobsTab> {
   final List<String> _filters = ['Open', 'Assigned', 'Active', 'Done'];
   String _selectedFilter = 'Open';
 
+  void refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor: AppTheme.backgroundWhite,
-       appBar: AppBar(
-         backgroundColor: AppTheme.primaryTeal,
-         elevation: 0,
-         toolbarHeight: 80,
-         title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Text(
-                 'Job Management',
-                 style: TextStyle(
-                    color: AppTheme.backgroundWhite,
-                    fontSize: 24,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
-                 ),
-               ),
-               Text(
-                 'Track all your posted jobs',
-                  style: TextStyle(
-                    color: AppTheme.backgroundWhite.withOpacity(0.9),
-                    fontSize: 14,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                 ),
-               ),
-            ],
-         ),
-       ),
+
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(130),
+        child: AppBar(
+          backgroundColor: AppTheme.primaryTeal,
+          automaticallyImplyLeading: false,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(80),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 24.0, bottom: 24.0, right: 24.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Header(
+                      title: 'Job Management',
+                      titleSize: 24,
+                      titleColor: AppTheme.backgroundWhite,
+                    ),
+                    const SizedBox(height: 4,),
+                    Header(
+                      subtitle: 'Track all your posted jobs',
+                      subtitleSize: 14,
+                      subtitleColor: AppTheme.backgroundWhite,
+
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+
+      body: Column(
+        children: [
+          _buildFilters(),
+          Expanded(
+            child: _buildJobList(),
+          ),
+        ],
+      ),
     );
   }
 
+  Widget _buildFilters() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF4F6F9),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: _filters.map((filter) {
+          final isSelected = _selectedFilter == filter;
+          return Expanded(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selectedFilter = filter;
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                decoration: isSelected
+                    ? BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(26),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      )
+                    : const BoxDecoration(), // Transparent if unselected
+                alignment: Alignment.center,
+                child: Text(
+                  filter,
+                  style: TextStyle(
+                    color: isSelected 
+                        ? AppTheme.primaryTeal 
+                        : AppTheme.primaryTeal.withValues(alpha: 0.7),
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildJobList() {
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      children: [
+        ...MockJobs.jobs.map((job) {
+          return JobCard(
+            title: job['title'],
+            status: job['status'],
+            pickupLocation: job['pickupLocation'],
+            deliveryLocation: job['deliveryLocation'],
+            time: job['time'],
+            price: job['price'],
+            onViewDetails: () {},
+          );
+        }).toList(),
+        // Add extra padding at bottom so nav bar doesn't overlap trailing items
+        const SizedBox(height: 90),
+      ],
+    );
+  }
 
  }
 

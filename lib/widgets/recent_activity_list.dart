@@ -13,25 +13,27 @@ class _RecentActivityListState extends State<RecentActivityList> {
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
-      physics: const BouncingScrollPhysics(), // Allows it to scroll smoothly within its 300px container
+      physics: const BouncingScrollPhysics(),
       itemCount: 10,
-      separatorBuilder: (context, index) => const SizedBox(height: 8), // Adds exactly 8 pixels spacing between every card
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
       itemBuilder: (context, index) {
         return CustomContainer(
-          height: 78,
+          padding: EdgeInsets.zero,
           width: double.infinity,
-          child: ListTile(
-            leading: Container(
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle,
+          child: Center(
+            child: ListTile(
+              leading: Container(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.circle,
+                ),
               ),
+              title: const Text('Job Completed', overflow: TextOverflow.ellipsis, maxLines: 1),
+              subtitle: const Text('Driver: John Smith - Dallas Route', overflow: TextOverflow.ellipsis, maxLines: 1),
+              trailing: const Text('1h ago'),
             ),
-            title: Text('Job Completed',overflow: TextOverflow.ellipsis, maxLines: 1,),
-            subtitle: Text('Driver: John Smith - Dallas Route',overflow: TextOverflow.ellipsis, maxLines: 1,),
-            trailing: Text('1h ago'),
           ),
         );
       },

@@ -6,6 +6,7 @@ import '../../widgets/test/stat_card.dart';
 import '../../widgets/broker/recent_activity_card.dart';
 import '../../widgets/broker/quick_stats_card.dart';
 import '../../widgets/recent_activity_list.dart';
+import 'create_job.dart';
 
 class BrokerHomeTab extends StatelessWidget {
   const BrokerHomeTab({super.key});
@@ -18,11 +19,9 @@ class BrokerHomeTab extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            // Fixed Top Header
-            _buildHeaderAndStats(),
+             _buildHeaderAndStats(),
             
-            // Scrollable White Body
-            Expanded(
+             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
                   color: AppTheme.backgroundWhite,
@@ -33,12 +32,14 @@ class BrokerHomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Create New Job Button
-                      PrimaryButton(
+                       PrimaryButton(
                         text: '+ Create New Job',
                         backgroundColor: AppTheme.accentRed,
                         onPressed: () {
-                          // TODO: Navigate to create job screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const CreateJob()),
+                          );
                         },
                       ),
                       const SizedBox(height: 32),
@@ -48,21 +49,18 @@ class BrokerHomeTab extends StatelessWidget {
                         titleColor: AppTheme.primaryTeal,
                         crossAxisAlignment: CrossAxisAlignment.start,),
                       const SizedBox(height: 16),
-                      // Recent Activity Section
-                      Container(
+                       Container(
                           width: double.infinity,
                           height: 300,
                           child: const RecentActivityList()),
 
                       const SizedBox(height: 32),
-                      // Quick Stats Section
                       const QuickStatsCard(
                         thisWeekValue: '24 Jobs',
                         thisMonthValue: '98 Jobs',
                       ),
                       
                       const SizedBox(height: 32),
-                      // Add extra space at the bottom to account for the floating navbar
                     ],
                   ),
                 ),
@@ -114,7 +112,7 @@ class BrokerHomeTab extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
-              childAspectRatio: 1.5, // Wider aspect ratio fits the rectangle cards in design and prevents overflow
+              childAspectRatio: 1.5,
               children: const [
                 StatCard(
                   title: 'Active Jobs',

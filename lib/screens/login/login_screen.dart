@@ -41,22 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // CircleIcon(size: 64, imagePath: 'assets/images/shiping_icon1.png'),
-              // const SizedBox(height: 24),
-              // Text(
-              //   'Welcome Back',
-              //   style: TextStyle(color: AppTheme.primaryTeal,fontSize: 30,
-              //     fontFamily: 'Poppins',
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-              // const SizedBox(height: 8),
-              // Text(
-              //   'Sign in to your account',
-              //   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              //         color: AppTheme.textLight,
-              //       ),
-              // ),
               Header(
                 imagePath: 'assets/images/shiping_icon1.png',
                 size: 64,

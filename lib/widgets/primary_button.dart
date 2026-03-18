@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -5,6 +7,7 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color? backgroundColor;
   final Color? textColor;
+  final double borderradius;
   final bool isLoading;
   final bool isOutlined;
 
@@ -13,6 +16,7 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.backgroundColor,
+    this.borderradius=14,
     this.textColor,
     this.isLoading = false,
     this.isOutlined = false,
@@ -28,7 +32,7 @@ class PrimaryButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             side: const BorderSide(color: Colors.white, width: 1.5),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(borderradius),
             ),
             padding: const EdgeInsets.symmetric(vertical: 16),
           ),

@@ -7,6 +7,6 @@ class AppTheme {
   static const Color textDark = Color(0xFF2D3142);
   static const Color textLight = Color(0xFF6B7280);
   static const Color inputBorder = Color(0xFFE2E8F0);
-
+  static const Color subtitle = Color(0xFFDBEAFE);
 
 }

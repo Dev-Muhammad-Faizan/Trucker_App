@@ -15,7 +15,6 @@ class QuickStatsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      // Light blueish-grey background from mockup
       decoration: BoxDecoration(
         color: const Color(0xFFF2F6F9),
         borderRadius: BorderRadius.circular(16),

@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import '../core/theme.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomDropdownField extends StatelessWidget {
   final String label;
   final String hint;
-  final TextEditingController? controller;
-  final TextInputType keyboardType;
-  final bool isPassword;
+  final List<String> items;
+  final String? value;
+  final void Function(String?) onChanged;
   final String? Function(String?)? validator;
-  final int? maxLines;
-  final void Function(String)? onChanged;
 
-  const CustomTextField({
+  const CustomDropdownField({
     super.key,
     required this.label,
     required this.hint,
-    this.controller,
-    this.keyboardType = TextInputType.text,
-    this.isPassword = false,
+    required this.items,
+    required this.value,
+    required this.onChanged,
     this.validator,
-    this.maxLines = 1,
-    this.onChanged,
   });
 
   @override
@@ -38,13 +34,11 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-          obscureText: isPassword,
-          validator: validator,
-          maxLines: isPassword ? 1 : maxLines,
+        DropdownButtonFormField<String>(
+          value: value,
           onChanged: onChanged,
+          validator: validator,
+          icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppTheme.textLight),
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: const TextStyle(
@@ -55,6 +49,7 @@ class CustomTextField extends StatelessWidget {
             ),
             filled: true,
             fillColor: Colors.white,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
               borderSide: const BorderSide(color: AppTheme.inputBorder),
@@ -64,6 +59,19 @@ class CustomTextField extends StatelessWidget {
               borderSide: const BorderSide(color: AppTheme.primaryTeal, width: 2),
             ),
           ),
+          items: items.map((String item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(
+                item,
+                style: const TextStyle(
+                  color: AppTheme.textDark,
+                  fontSize: 14,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ],
     );
