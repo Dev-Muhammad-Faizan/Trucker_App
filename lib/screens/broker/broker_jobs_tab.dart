@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme.dart';
 import '../../data/mock_jobs.dart';
+import '../../routes/routes_name.dart';
 import '../../widgets/Header.dart';
 import '../../widgets/broker/job_card.dart';
 
@@ -102,7 +103,7 @@ class _BrokerJobsTabState extends State<BrokerJobsTab> {
                           ),
                         ],
                       )
-                    : const BoxDecoration(), // Transparent if unselected
+                    : const BoxDecoration(),
                 alignment: Alignment.center,
                 child: Text(
                   filter,
@@ -124,10 +125,34 @@ class _BrokerJobsTabState extends State<BrokerJobsTab> {
   }
 
   Widget _buildJobList() {
+    final filteredJobs = MockJobs.jobs.where((job) {
+      return job['status'] == _selectedFilter;
+    }).toList();
+
+    if (filteredJobs.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.assignment_outlined, size: 48, color: AppTheme.textLight.withValues(alpha: 0.5)),
+            const SizedBox(height: 16),
+            Text(
+              'No $_selectedFilter jobs found.',
+              style: const TextStyle(
+                color: AppTheme.textLight,
+                fontFamily: 'Poppins',
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       children: [
-        ...MockJobs.jobs.map((job) {
+        ...filteredJobs.map((job) {
           return JobCard(
             title: job['title'],
             status: job['status'],
@@ -135,11 +160,12 @@ class _BrokerJobsTabState extends State<BrokerJobsTab> {
             deliveryLocation: job['deliveryLocation'],
             time: job['time'],
             price: job['price'],
-            onViewDetails: () {},
+            onViewDetails: () {
+              Navigator.pushNamed(context, RoutesName.jobDetail, arguments: job);
+            },
           );
         }).toList(),
-        // Add extra padding at bottom so nav bar doesn't overlap trailing items
-        const SizedBox(height: 90),
+         const SizedBox(height: 90),
       ],
     );
   }

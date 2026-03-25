@@ -8,6 +8,7 @@ class CustomDropdownField extends StatelessWidget {
   final String? value;
   final void Function(String?) onChanged;
   final String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
   const CustomDropdownField({
     super.key,
@@ -17,6 +18,7 @@ class CustomDropdownField extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.validator,
+    this.focusNode,
   });
 
   @override
@@ -36,6 +38,7 @@ class CustomDropdownField extends StatelessWidget {
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: value,
+          focusNode: focusNode,
           onChanged: onChanged,
           validator: validator,
           icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppTheme.textLight),

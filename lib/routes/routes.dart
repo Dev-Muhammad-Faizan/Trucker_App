@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/routes/routes_name.dart';
 import 'package:trucker_connect/screens/broker/create_job.dart';
+import 'package:trucker_connect/screens/broker/driver_review.dart';
+import 'package:trucker_connect/screens/broker/job_detail.dart';
 import 'package:trucker_connect/screens/broker/record_payment.dart';
 
 import '../screens/login/broker_registration_screen.dart';
@@ -37,7 +39,12 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const CreateJob());
       case RoutesName.recordPayment:
         return MaterialPageRoute(builder: (_) => const RecordPayment());
-
+      case RoutesName.driverReview:
+        final driverId = settings.arguments as String? ?? '';
+        return MaterialPageRoute(builder: (_) => DriverReview(driverId: driverId));
+      case RoutesName.jobDetail:
+        final job = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(builder: (_) => JobDetail(job: job));
       default:
         return MaterialPageRoute(
           builder: (_) {

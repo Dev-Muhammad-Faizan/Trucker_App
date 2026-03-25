@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trucker_connect/routes/routes_name.dart';
 import 'package:trucker_connect/widgets/Header.dart';
 import 'package:trucker_connect/widgets/custom_container.dart';
 import 'package:trucker_connect/widgets/primary_button.dart';
@@ -83,7 +84,9 @@ class DriverCard extends StatelessWidget {
                 Expanded(
                   child: PrimaryButton(
                     text: 'Leave Review',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RoutesName.driverReview);
+                    },
                     backgroundColor: AppTheme.backgroundWhite,
                     textColor: AppTheme.primaryTeal,
                     borderradius: 12,
@@ -92,7 +95,7 @@ class DriverCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: PrimaryButton(
-                    text: 'Leave Review',
+                    text: 'View Profile',
                     onPressed: () {},
                     backgroundColor: AppTheme.primaryTeal,
                     borderradius: 12,

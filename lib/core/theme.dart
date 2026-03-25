@@ -8,5 +8,6 @@ class AppTheme {
   static const Color textLight = Color(0xFF6B7280);
   static const Color inputBorder = Color(0xFFE2E8F0);
   static const Color subtitle = Color(0xFFDBEAFE);
+  static const Color starYellow = Color(0xFFFFC107);
 
 }

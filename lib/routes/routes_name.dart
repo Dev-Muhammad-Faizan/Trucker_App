@@ -9,6 +9,8 @@ class RoutesName {
   static const String brokerMainScreen = '/brokerMainScreen';
   static const String createJob = '/createJob';
   static const String recordPayment = '/recordPayment';
+  static const String driverReview = '/driverReview';
+static const String jobDetail = '/jobDetail';
 
 
 }

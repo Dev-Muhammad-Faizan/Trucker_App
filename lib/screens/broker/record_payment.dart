@@ -27,8 +27,6 @@ class _RecordPaymentState extends State<RecordPayment> {
     return _IDController.text.isNotEmpty &&
         _NameController.text.isNotEmpty &&
         _AmountController.text.isNotEmpty &&
-
-        _descriptionController.text.isNotEmpty &&
         _selectedPaymentType != null ;
 
   }
@@ -151,6 +149,22 @@ class _RecordPaymentState extends State<RecordPayment> {
                     ? AppTheme.accentRed
                     : AppTheme.accentRed.withValues(alpha: 0.5),
                 onPressed: (){
+                  if(_isFormValid)
+                    {}
+                  else
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Center(
+                            child: Text(
+                              'Please fill all required details',
+                              style: TextStyle(fontFamily: 'Poppins'),
+                            ),
+                          ),
+                          backgroundColor: AppTheme.accentRed,
+                          duration: Duration(milliseconds: 500),
+                        ),
+                      );                    }
                 },
               ),
               const SizedBox(height: 12),

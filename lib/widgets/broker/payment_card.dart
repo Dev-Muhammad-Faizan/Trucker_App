@@ -54,6 +54,7 @@ class PaymentCard extends StatelessWidget {
               title: title,
               titleSize: 16,
               titleColor: AppTheme.primaryTeal,
+              crossAxisAlignment: CrossAxisAlignment.start,
             ),
             const SizedBox(height: 8),
 

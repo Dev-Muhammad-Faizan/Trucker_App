@@ -26,7 +26,7 @@ class _CreateJobState extends State<CreateJob> {
   String? _selectedLoadType;
   String? _selectedVisibility;
   void _onFieldChanged([String? _]) {
-    setState(() {}); // Trigggers rebuild to check validation
+    setState(() {});
   }
   bool get _isFormValid {
     return _titleController.text.isNotEmpty &&
@@ -36,7 +36,7 @@ class _CreateJobState extends State<CreateJob> {
         _timeController.text.isNotEmpty &&
         _rateController.text.isNotEmpty &&
         _descriptionController.text.isNotEmpty &&
-        _instructionsController.text.isNotEmpty &&
+        // _instructionsController.text.isNotEmpty &&
         _selectedLoadType != null &&
         _selectedVisibility != null;
   }
@@ -86,13 +86,13 @@ class _CreateJobState extends State<CreateJob> {
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: const Text(
-                    'Back', 
-                    style: TextStyle(
-                      color: AppTheme.backgroundWhite, 
-                      fontSize: 16, 
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500
-                    )
+                      'Back',
+                      style: TextStyle(
+                          color: AppTheme.backgroundWhite,
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500
+                      )
                   ),
                 )
               ],
@@ -139,113 +139,121 @@ class _CreateJobState extends State<CreateJob> {
             children: [
               CustomContainer(
                 child: Column(
-              children: [
-              CustomTextField(
-              label: 'Job Title',
-                hint: 'Local Freight Pickup',
-                controller: _titleController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-
-              CustomTextField(
-                label: 'Pickup Address',
-                hint: '1234 Industrial Blvd, Dallas, TX',
-                controller: _pickupController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-
-              CustomTextField(
-                label: 'Delivery Address',
-                hint: '5678 Commerce St, Houston, TX',
-                controller: _deliveryController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      label: 'Date',
-                      hint: 'YYYY-MM-DD',
-                      controller: _dateController,
+                  children: [
+                    CustomTextField(
+                      label: 'Job Title',
+                      hint: 'Local Freight Pickup',
+                      controller: _titleController,
                       onChanged: _onFieldChanged,
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: CustomTextField(
-                      label: 'Time',
-                      hint: '08:00 AM',
-                      controller: _timeController,
+                    const SizedBox(height: 16),
+
+                    CustomTextField(
+                      label: 'Pickup Address',
+                      hint: '1234 Industrial Blvd, Dallas, TX',
+                      controller: _pickupController,
                       onChanged: _onFieldChanged,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 16),
+
+                    CustomTextField(
+                      label: 'Delivery Address',
+                      hint: '5678 Commerce St, Houston, TX',
+                      controller: _deliveryController,
+                      onChanged: _onFieldChanged,
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            label: 'Date',
+                            hint: 'YYYY-MM-DD',
+                            controller: _dateController,
+                            onChanged: _onFieldChanged,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: CustomTextField(
+                            label: 'Time',
+                            hint: '08:00 AM',
+                            controller: _timeController,
+                            onChanged: _onFieldChanged,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    CustomTextField(
+                      label: 'Payment Rate (\$)',
+                      hint: '1200',
+                      keyboardType: TextInputType.number,
+                      controller: _rateController,
+                      onChanged: _onFieldChanged,
+                    ),
+                    const SizedBox(height: 16),
+                    CustomDropdownField(
+                      label: 'Load Type',
+                      hint: 'Select load type',
+                      value: _selectedLoadType,
+                      items: const ['Dry Van', 'Reefer', 'Flatbed', 'Intermodal'],
+                      onChanged: (val) {
+                        setState(() => _selectedLoadType = val);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    CustomTextField(
+                      label: 'Description',
+                      hint: 'Describe the job details...',
+                      maxLines: 4,
+                      controller: _descriptionController,
+                      onChanged: _onFieldChanged,
+                    ),
+                    const SizedBox(height: 16),
+                    CustomTextField(
+                      label: 'Additional Instructions',
+                      hint: 'Any special requirements or instructions...',
+                      maxLines: 4,
+                      controller: _instructionsController,
+                      onChanged: _onFieldChanged,
+                    ),
+                    const SizedBox(height: 16),
+                    CustomDropdownField(
+                      label: 'Visibility',
+                      hint: 'Public - All Drivers',
+                      value: _selectedVisibility,
+                      items: const ['Public - All Drivers', 'Private - Invited Only'],
+                      onChanged: (val) {
+                        setState(() => _selectedVisibility = val);
+                      },
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
-              CustomTextField(
-                label: 'Payment Rate (\$)',
-                hint: '1200',
-                keyboardType: TextInputType.number,
-                controller: _rateController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-              CustomDropdownField(
-                label: 'Load Type',
-                hint: 'Select load type',
-                value: _selectedLoadType,
-                items: const ['Dry Van', 'Reefer', 'Flatbed', 'Intermodal'],
-                onChanged: (val) {
-                  setState(() => _selectedLoadType = val);
-                },
-              ),
-              const SizedBox(height: 16),
-              CustomTextField(
-                label: 'Description',
-                hint: 'Describe the job details...',
-                maxLines: 4,
-                controller: _descriptionController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-              CustomTextField(
-                label: 'Additional Instructions',
-                hint: 'Any special requirements or instructions...',
-                maxLines: 4,
-                controller: _instructionsController,
-                onChanged: _onFieldChanged,
-              ),
-              const SizedBox(height: 16),
-              CustomDropdownField(
-                label: 'Visibility',
-                hint: 'Public - All Drivers',
-                value: _selectedVisibility,
-                items: const ['Public - All Drivers', 'Private - Invited Only'],
-                onChanged: (val) {
-                  setState(() => _selectedVisibility = val);
-                },
-              ),
-            ],
-          ),
-              ),
-              const SizedBox(height: 16),
-              // Post Job Button
               PrimaryButton(
                 text: 'Post Job',
-                // Visual cue: fade the red background when disabled
                 backgroundColor: _isFormValid
                     ? AppTheme.accentRed
                     : AppTheme.accentRed.withValues(alpha: 0.5),
-                // onPressed: _isFormValid ? _postJob : null,
-                onPressed: (){
-                  if(_isFormValid)
-                    {
-                      return _postJob();
-                    }
-
+                onPressed: () {
+                  if (_isFormValid) {
+                    _postJob();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Center(
+                          child: Text(
+                            'Please fill all required details',
+                            style: TextStyle(fontFamily: 'Poppins'),
+                          ),
+                        ),
+                        backgroundColor: AppTheme.accentRed,
+                        duration: Duration(milliseconds: 500),
+                      ),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 12),

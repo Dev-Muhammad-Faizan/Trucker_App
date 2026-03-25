@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class StatCard extends StatelessWidget {
   final String title;
   final String value;
-  final IconData icon;
-  final Color iconColor;
+  final IconData? icon;
+  final Color? iconColor;
 
   const StatCard({
     super.key,

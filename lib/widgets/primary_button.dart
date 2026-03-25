@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:trucker_connect/core/theme.dart';
+import 'package:trucker_connect/widgets/Header.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -10,7 +12,8 @@ class PrimaryButton extends StatelessWidget {
   final double borderradius;
   final bool isLoading;
   final bool isOutlined;
-
+  final Color OutlineColor;
+  final double width;
   const PrimaryButton({
     super.key,
     required this.text,
@@ -20,6 +23,8 @@ class PrimaryButton extends StatelessWidget {
     this.textColor,
     this.isLoading = false,
     this.isOutlined = false,
+    this.OutlineColor=Colors.white,
+    this.width=1.5,
   });
 
   @override
@@ -30,7 +35,7 @@ class PrimaryButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: isLoading ? null : onPressed,
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.white, width: 1.5),
+            side: BorderSide(color: OutlineColor, width: width),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderradius),
             ),
@@ -45,11 +50,11 @@ class PrimaryButton extends StatelessWidget {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 )
-              : Text(
-                  text,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
-                      ),
+              : Header(
+                 title:  text,
+                  titleColor: textColor ??AppTheme.backgroundWhite,
+                  titleSize: 14,
+
                 ),
         ),
       );
@@ -60,7 +65,7 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
+          backgroundColor: backgroundColor ??AppTheme.primaryTeal,
           foregroundColor: textColor ?? Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),

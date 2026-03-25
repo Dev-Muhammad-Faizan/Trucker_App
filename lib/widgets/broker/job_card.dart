@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/widgets/Header.dart';
+import 'package:trucker_connect/widgets/custom_container.dart';
+import 'package:trucker_connect/widgets/primary_button.dart';
 import '../../../core/theme.dart';
+import '../../routes/routes_name.dart';
 
 class JobCard extends StatelessWidget {
   final String title;
@@ -24,97 +27,91 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: AppTheme.backgroundWhite,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppTheme.textLight.withValues(alpha: 0.2)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Header(
-                  title: title,
-                  titleSize: 18,
-                  titleColor: AppTheme.primaryTeal,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: CustomContainer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Header(
+                    title: title,
+                    titleSize: 18,
+                    titleColor: AppTheme.primaryTeal,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
                 ),
-              ),
-              const Icon(Icons.local_shipping_outlined, color: AppTheme.accentRed, size: 24),
-            ],
-          ),
-          const SizedBox(height: 8),
-          
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.blue.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+                const Icon(
+                  Icons.local_shipping_outlined,
+                  color: AppTheme.accentRed,
+                  size: 24,
+                ),
+              ],
             ),
-            child: Text(
-               status,
-               style: const TextStyle(
-                 color: Colors.blue,
+            const SizedBox(height: 8),
+
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.blue.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                status,
+                style: const TextStyle(
+                  color: Colors.blue,
                   fontSize: 12,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
-               ),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          _buildLocationRow(
-            icon: Icons.location_on_outlined, 
-            iconColor: AppTheme.textLight, 
-            label: 'Pickup:', 
-            value: pickupLocation,
-          ),
-          const SizedBox(height: 12),
+            _buildLocationRow(
+              icon: Icons.location_on_outlined,
+              iconColor: AppTheme.textLight,
+              label: 'Pickup:',
+              value: pickupLocation,
+            ),
+            const SizedBox(height: 12),
 
-          // Delivery Location
-          _buildLocationRow(
-            icon: Icons.location_on_outlined, 
-            iconColor: AppTheme.accentRed, 
-            label: 'Delivery:', 
-            value: deliveryLocation,
-          ),
-          const SizedBox(height: 16),
+             _buildLocationRow(
+              icon: Icons.location_on_outlined,
+              iconColor: AppTheme.accentRed,
+              label: 'Delivery:',
+              value: deliveryLocation,
+            ),
+            const SizedBox(height: 16),
 
-          // Time and Date Row
-          Row(
-             children: [
-               const Icon(Icons.calendar_today_outlined, size: 18, color: AppTheme.textLight),
-               const SizedBox(width: 8),
-               Text(
-                 time,
-                   style: const TextStyle(
-                     color: AppTheme.primaryTeal,
-                     fontSize: 14,
-                     fontFamily: 'Poppins',
-                     fontWeight: FontWeight.w400,
+             Row(
+              children: [
+                const Icon(
+                  Icons.calendar_today_outlined,
+                  size: 18,
+                  color: AppTheme.textLight,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  time,
+                  style: const TextStyle(
+                    color: AppTheme.primaryTeal,
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
                   ),
-               ),
-             ]
-          ),
-          const SizedBox(height: 12),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
 
-          // Price Row
-          Row(
-             children: [
+            // Price Row
+            Row(
+              children: [
                 const Text(
                   '\$',
                   style: TextStyle(
@@ -126,82 +123,65 @@ class JobCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                 price.replaceAll('\$', '').trim(), // Ensure single dollar sign
-                 style: const TextStyle(
-                   color: AppTheme.accentRed,
-                   fontSize: 14,
-                   fontFamily: 'Poppins',
-                   fontWeight: FontWeight.w700,
-                 ),
-               ),
-             ],
-          ),
-          const SizedBox(height: 20),
-
-          // Full-width View Details Button
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
-              onPressed: onViewDetails,
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.primaryTeal,
-                  foregroundColor: AppTheme.backgroundWhite,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                  price.replaceAll('\$', '').trim(),
+                  style: const TextStyle(
+                    color: AppTheme.accentRed,
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
                   ),
-              ),
-              child: const Text(
-                'View Details',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+
+            PrimaryButton(
+              text: 'View Details',
+              onPressed: () {
+                Navigator.pushNamed(context, RoutesName.jobDetail);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildLocationRow({
-    required IconData icon, 
-    required Color iconColor, 
-    required String label, 
-    required String value
+    required IconData icon,
+    required Color iconColor,
+    required String label,
+    required String value,
   }) {
-     return Row(
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: [
-          Icon(icon, size: 20, color: iconColor),
-          const SizedBox(width: 8),
-          Expanded(
-             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                    Header(
-                       title: label,
-                       titleSize: 14,
-                       titleColor: AppTheme.primaryTeal,
-                       titleFontWeight: FontWeight.w600,
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      value,
-                      style: const TextStyle(
-                         color: AppTheme.textLight,
-                         fontSize: 14,
-                         fontFamily: 'Poppins',
-                         fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                ],
-             ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 20, color: iconColor),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Header(
+                title: label,
+                titleSize: 14,
+                titleColor: AppTheme.primaryTeal,
+                titleFontWeight: FontWeight.w600,
+              ),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: const TextStyle(
+                  color: AppTheme.textLight,
+                  fontSize: 14,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
           ),
-       ],
-     );
+        ),
+      ],
+    );
   }
 }

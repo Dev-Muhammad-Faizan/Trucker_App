@@ -16,6 +16,7 @@ class Header extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final TextAlign textAlign;
   final double imagespce;
+  final double space;
 
   const Header({
     super.key,
@@ -27,12 +28,13 @@ class Header extends StatelessWidget {
     this.subtitleColor,
     this.fontFamily = 'Poppins',
     this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.textAlign = TextAlign.center,
+    this.textAlign = TextAlign.start,
     this.titleSize = 30,
     this.subtitleSize = 16,
     this.titleFontWeight = FontWeight.w700,
     this.subtitleFontWeight = FontWeight.w400,
     this.imagespce = 32,
+    this.space =8,
   });
 
   @override
@@ -41,7 +43,6 @@ class Header extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: crossAxisAlignment,
       children: [
-        /// IMAGE
         if (imagePath != null && size != null)
           SizedBox(
             width: size,
@@ -57,11 +58,9 @@ class Header extends StatelessWidget {
             ),
           ),
 
-        /// SPACE BETWEEN IMAGE & TITLE
         if (imagePath != null && title != null)
            SizedBox(height: imagespce),
 
-        /// TITLE
         if (title != null)
           Text(
             title!,
@@ -70,15 +69,14 @@ class Header extends StatelessWidget {
               fontSize: titleSize,
               fontFamily: fontFamily,
               fontWeight: titleFontWeight,
+
             ),
             textAlign: textAlign,
           ),
 
-        /// SPACE BETWEEN TITLE & SUBTITLE
         if (title != null && subtitle != null)
-          const SizedBox(height: 8),
+           SizedBox(height: space),
 
-        /// SUBTITLE
         if (subtitle != null)
           Text(
             subtitle!,

@@ -14,69 +14,75 @@ class BrokerHomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.primaryTeal,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-             _buildHeaderAndStats(),
-            
-             Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: AppTheme.backgroundWhite,
-                
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       PrimaryButton(
-                        text: '+ Create New Job',
-                        backgroundColor: AppTheme.accentRed,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const CreateJob()),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 32),
-                      Header( title: 'Recent Activity',
-                        titleFontWeight: FontWeight.w600,
-                        size: 20,
-                        titleColor: AppTheme.primaryTeal,
-                        crossAxisAlignment: CrossAxisAlignment.start,),
-                      const SizedBox(height: 16),
-                       Container(
-                          width: double.infinity,
-                          height: 300,
-                          child: const RecentActivityList()),
-
-                      const SizedBox(height: 32),
-                      const QuickStatsCard(
-                        thisWeekValue: '24 Jobs',
-                        thisMonthValue: '98 Jobs',
-                      ),
-                      
-                      const SizedBox(height: 32),
-                    ],
-                  ),
+      backgroundColor: AppTheme.backgroundWhite,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            backgroundColor: AppTheme.primaryTeal,
+            expandedHeight: 460.0,
+            automaticallyImplyLeading: false,
+            floating: false,
+            pinned: false,
+            flexibleSpace: FlexibleSpaceBar(
+              background: _buildHeaderAndStats(),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppTheme.backgroundWhite,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PrimaryButton(
+                      text: '+ Create New Job',
+                      backgroundColor: AppTheme.accentRed,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const CreateJob()),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 32),
+                    Header(
+                      title: 'Recent Activity',
+                      titleFontWeight: FontWeight.w600,
+                      size: 20,
+                      titleColor: AppTheme.primaryTeal,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      width: double.infinity,
+                      height: 300,
+                      child: const RecentActivityList(),
+                    ),
+                    const SizedBox(height: 32),
+                    const QuickStatsCard(
+                      thisWeekValue: '24 Jobs',
+                      thisMonthValue: '98 Jobs',
+                    ),
+                    const SizedBox(height: 32),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildHeaderAndStats() {
     return Container(
-      height: 406,
+      height: 460,
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+      padding: const EdgeInsets.fromLTRB(24, 60, 24, 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,15 +110,16 @@ class BrokerHomeTab extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
           Expanded(
-            child: GridView.count(
+            child: GridView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 1.5,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                mainAxisExtent: 140, // strictly enforce exact squarish height perfectly regardless of emulator width!
+              ),
               children: const [
                 StatCard(
                   title: 'Active Jobs',
@@ -144,4 +151,5 @@ class BrokerHomeTab extends StatelessWidget {
         ],
       ),
     );
-  }}
+  }
+}
