@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../core/theme.dart';
 
 class Header extends StatelessWidget {
@@ -17,6 +18,9 @@ class Header extends StatelessWidget {
   final TextAlign textAlign;
   final double imagespce;
   final double space;
+  final Color? imagecolor;
+  final Color? imageBackgroundColor;
+  final double? backgroundSize;
 
   const Header({
     super.key,
@@ -34,7 +38,10 @@ class Header extends StatelessWidget {
     this.titleFontWeight = FontWeight.w700,
     this.subtitleFontWeight = FontWeight.w400,
     this.imagespce = 32,
-    this.space =8,
+    this.space = 8,
+    this.imagecolor,
+    this.imageBackgroundColor,
+    this.backgroundSize,
   });
 
   @override
@@ -45,15 +52,32 @@ class Header extends StatelessWidget {
       children: [
         if (imagePath != null && size != null)
           SizedBox(
-            width: size,
-            height: size,
+            width: backgroundSize ?? size,
+            height: backgroundSize ?? size,
             child: ClipOval(
-              child: Image.asset(
-                imagePath!,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Icon(Icons.broken_image, size: size, color: AppTheme.textLight);
-                },
+              child: Container(
+                color: imageBackgroundColor,
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: size,
+                  height: size,
+                  child: imagePath!.toLowerCase().endsWith('.svg')
+                      ? SvgPicture.asset(
+                          imagePath!,
+                          fit: BoxFit.contain,
+                          colorFilter: imagecolor != null
+                              ? ColorFilter.mode(imagecolor!, BlendMode.srcIn)
+                              : null,
+                        )
+                      : Image.asset(
+                          imagePath!,
+                          fit: BoxFit.contain,
+                          color: imagecolor,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(Icons.broken_image, size: size, color: AppTheme.textLight);
+                          },
+                        ),
+                ),
               ),
             ),
           ),

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:trucker_connect/widgets/Header.dart';
-import 'package:trucker_connect/widgets/broker/row_header.dart';
-import 'package:trucker_connect/widgets/custom_container.dart';
-import 'package:trucker_connect/widgets/primary_button.dart';
-import '../../core/theme.dart';
+import 'package:trucker_connect/routes/routes_name.dart';
+import 'package:trucker_connect/widgets/custom_icon.dart';
 
-class JobDetail extends StatefulWidget {
+import '../../core/theme.dart';
+import '../../widgets/Header.dart';
+import '../../widgets/broker/row_header.dart';
+import '../../widgets/custom_container.dart';
+import '../../widgets/primary_button.dart';
+class DriverJobDetails extends StatefulWidget {
   final Map<String, dynamic>? job;
 
-  const JobDetail({super.key, this.job});
+  const DriverJobDetails({super.key,this.job});
 
   @override
-  State<JobDetail> createState() => _JobDetailState();
+  State<DriverJobDetails> createState() => _DriverJobDetailsState();
 }
 
-class _JobDetailState extends State<JobDetail> {
+class _DriverJobDetailsState extends State<DriverJobDetails> {
   @override
   Widget build(BuildContext context) {
     final jobData = widget.job ?? {
@@ -122,10 +124,13 @@ class _JobDetailState extends State<JobDetail> {
                         Expanded(
                           child: RowHeader(
                             imagePath: 'assets/images/all/card.svg',
-                            iconColor: AppTheme.textLight,
+                             imgSize: 11,
+                             height: 20,
+                             iconColor: AppTheme.textLight,
                             title: 'Date & Time',
                             subtitle: jobData['time'],
                             titlesize: 14,
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
                           ),
                         ),
@@ -136,6 +141,7 @@ class _JobDetailState extends State<JobDetail> {
                             title: 'Load Type',
                             subtitle: jobData['loadType'],
                             titlesize: 14,
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
                           ),
                         ),
@@ -143,12 +149,13 @@ class _JobDetailState extends State<JobDetail> {
                     ),
                     const SizedBox(height: 24),
                     CustomContainer(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                         backgroundColor: AppTheme.accentRed.withValues(alpha: 0.1),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+
+                        backgroundColor: AppTheme.accentRed.withValues(alpha: 0.1),
                         borderColor: AppTheme.accentRed.withValues(alpha: 0.1),
                         child: Row(
                         children: [
-                          const Icon(Icons.attach_money, color: AppTheme.accentRed, size: 28),
+                          CustomIcon(imagePath: 'assets/images/all/cash.svg',size: 24,),
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,16 +189,14 @@ class _JobDetailState extends State<JobDetail> {
               ),
               const SizedBox(height: 16),
 
-              // Card 2: Description
-              CustomContainer(
+               CustomContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Icons.description_outlined, color: AppTheme.primaryTeal, size: 20),
-                        const SizedBox(width: 12),
+CustomIcon(imagePath: 'assets/images/navigation/doc.svg',size: 20,color: AppTheme.primaryTeal,),                        const SizedBox(width: 12),
                         const Header(
                           title: 'Description',
                           titleColor: AppTheme.primaryTeal,
@@ -215,8 +220,7 @@ class _JobDetailState extends State<JobDetail> {
               ),
               const SizedBox(height: 16),
 
-              // Card 3: Additional Instructions
-              CustomContainer(
+               CustomContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -241,11 +245,10 @@ class _JobDetailState extends State<JobDetail> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 32),
-              
-              // Action Buttons
-              Row(
+
+               Row(
                 children: [
                   Expanded(
                     child: PrimaryButton(
@@ -262,7 +265,9 @@ class _JobDetailState extends State<JobDetail> {
                     child: PrimaryButton(
                       text: 'Accept Job',
                       backgroundColor: AppTheme.accentRed,
-                      onPressed: () {},
+                      onPressed: () {
+                         Navigator.pushNamed(context, RoutesName.acceptjob, arguments: jobData);
+                      },
                     ),
                   ),
                 ],

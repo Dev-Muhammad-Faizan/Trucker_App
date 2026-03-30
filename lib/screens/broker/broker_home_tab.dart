@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme.dart';
 import '../../widgets/Header.dart';
+import '../../widgets/custom_icon.dart';
 import '../../widgets/primary_button.dart';
 import '../../widgets/test/stat_card.dart';
 import '../../widgets/broker/recent_activity_card.dart';
@@ -20,7 +21,7 @@ class BrokerHomeTab extends StatelessWidget {
         slivers: [
           SliverAppBar(
             backgroundColor: AppTheme.primaryTeal,
-            expandedHeight: 460.0,
+            expandedHeight: 445,
             automaticallyImplyLeading: false,
             floating: false,
             pinned: false,
@@ -79,76 +80,75 @@ class BrokerHomeTab extends StatelessWidget {
   }
 
   Widget _buildHeaderAndStats() {
-    return Container(
-      height: 460,
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(24, 60, 24, 32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Header(
-                title: 'Welcome,',
-                subtitle: 'Logistics Inc.',
-                fontFamily: 'Poppins',
-                titleFontWeight: FontWeight.w700,
-                subtitleFontWeight: FontWeight.w400,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                titleSize: 26,
-                subtitleSize: 18,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: Icon(
-                  Icons.notifications_none,
-                  color: AppTheme.backgroundWhite,
-                  size: 28,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Header(
+                  title: 'Welcome,',
+                  titleSize: 24,
+                  subtitleSize: 20,
+                  space: 0,
+                  subtitle: 'Logistics Inc.',
+                  titleFontWeight: FontWeight.w700,
+                  subtitleFontWeight: FontWeight.w400,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: GridView(
+                const Padding(
+                  padding: EdgeInsets.only(top: 4),
+                  child: CustomIcon(
+                    imagePath: 'assets/images/all/bell.svg',
+                    size: 16,
+                    color: AppTheme.backgroundWhite,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            GridView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                mainAxisExtent: 140, // strictly enforce exact squarish height perfectly regardless of emulator width!
+                mainAxisExtent: 146,
               ),
               children: const [
                 StatCard(
                   title: 'Active Jobs',
                   value: '8',
-                  icon: Icons.work_outline,
-                  iconColor: AppTheme.accentRed,
+                  imagepath: 'assets/images/navigation/job.svg',
+                  imageColor: AppTheme.accentRed,
                 ),
                 StatCard(
                   title: 'Drivers Assigned',
                   value: '12',
-                  icon: Icons.people_outline,
-                  iconColor: AppTheme.accentRed,
+                  imagepath: 'assets/images/navigation/driver.svg',
+                  imageColor: AppTheme.accentRed,
                 ),
                 StatCard(
                   title: 'Invoices Pending',
                   value: '5',
-                  icon: Icons.receipt_long_outlined,
-                  iconColor: AppTheme.accentRed,
+                  imagepath: 'assets/images/all/invoice.svg',
+                  imageColor: AppTheme.accentRed,
                 ),
                 StatCard(
                   title: 'Payments Sent',
                   value: '\$18.5K',
-                  icon: Icons.attach_money,
-                  iconColor: AppTheme.accentRed,
+                  imagepath: 'assets/images/all/cash.svg',
+                  imageColor: AppTheme.accentRed,
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

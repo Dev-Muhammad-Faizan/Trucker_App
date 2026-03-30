@@ -35,7 +35,7 @@ class CustomContainer extends StatelessWidget {
         color:backgroundColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppTheme.inputBorder,
+          color: borderColor ??AppTheme.inputBorder ,
           width: 1.0,
         ),
       ),

@@ -4,10 +4,11 @@ import 'package:trucker_connect/widgets/custom_container.dart';
 import 'package:trucker_connect/widgets/primary_button.dart';
 import '../../../core/theme.dart';
 import '../../routes/routes_name.dart';
+import '../custom_icon.dart';
 
 class JobCard extends StatelessWidget {
   final String title;
-  final String status;
+  final String? status;
   final String pickupLocation;
   final String deliveryLocation;
   final String time;
@@ -17,7 +18,7 @@ class JobCard extends StatelessWidget {
   const JobCard({
     super.key,
     required this.title,
-    required this.status,
+     this.status,
     required this.pickupLocation,
     required this.deliveryLocation,
     required this.time,
@@ -45,15 +46,14 @@ class JobCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                 ),
-                const Icon(
-                  Icons.local_shipping_outlined,
-                  color: AppTheme.accentRed,
-                  size: 24,
+                const   CustomIcon(
+                  imagePath: 'assets/images/all/truck.svg',
+                  size: 20,
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-
+            const SizedBox(height: 3),
+   if(status != null)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
@@ -61,7 +61,7 @@ class JobCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                status,
+                status!,
                 style: const TextStyle(
                   color: Colors.blue,
                   fontSize: 12,
@@ -70,31 +70,28 @@ class JobCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-
-            _buildLocationRow(
-              icon: Icons.location_on_outlined,
-              iconColor: AppTheme.textLight,
-              label: 'Pickup:',
-              value: pickupLocation,
-            ),
             const SizedBox(height: 12),
 
+            _buildLocationRow(
+              imagePath: 'assets/images/all/location.svg',
+              imageColor: AppTheme.textLight,
+               label: 'Pickup:',
+              value: pickupLocation,
+            ),
+            const SizedBox(height: 8),
+
              _buildLocationRow(
-              icon: Icons.location_on_outlined,
-              iconColor: AppTheme.accentRed,
+               imagePath: 'assets/images/all/location.svg',
+               imageColor: AppTheme.accentRed,
               label: 'Delivery:',
               value: deliveryLocation,
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
 
              Row(
               children: [
-                const Icon(
-                  Icons.calendar_today_outlined,
-                  size: 18,
-                  color: AppTheme.textLight,
-                ),
+
+                CustomIcon(imagePath: 'assets/images/all/card.svg',size: 16,),
                 const SizedBox(width: 8),
                 Text(
                   time,
@@ -107,20 +104,12 @@ class JobCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
 
             // Price Row
             Row(
               children: [
-                const Text(
-                  '\$',
-                  style: TextStyle(
-                    color: AppTheme.accentRed,
-                    fontSize: 16,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                CustomIcon(imagePath: 'assets/images/navigation/payment.svg',size: 16,color: AppTheme.accentRed,),
                 const SizedBox(width: 8),
                 Text(
                   price.replaceAll('\$', '').trim(),
@@ -128,17 +117,17 @@ class JobCard extends StatelessWidget {
                     color: AppTheme.accentRed,
                     fontSize: 14,
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 12),
 
             PrimaryButton(
               text: 'View Details',
               onPressed: () {
-                Navigator.pushNamed(context, RoutesName.jobDetail);
+                onViewDetails();
               },
             ),
           ],
@@ -148,15 +137,16 @@ class JobCard extends StatelessWidget {
   }
 
   Widget _buildLocationRow({
-    required IconData icon,
-    required Color iconColor,
+
+    required String imagePath,
+    required Color imageColor,
     required String label,
     required String value,
   }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 20, color: iconColor),
+         CustomIcon(imagePath: imagePath,color: imageColor,size:  16),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -167,17 +157,13 @@ class JobCard extends StatelessWidget {
                 titleSize: 14,
                 titleColor: AppTheme.primaryTeal,
                 titleFontWeight: FontWeight.w600,
+                subtitle: value,
+                subtitleSize: 14,
+                subtitleColor: AppTheme.textLight,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                space: 2,
               ),
-              const SizedBox(height: 2),
-              Text(
-                value,
-                style: const TextStyle(
-                  color: AppTheme.textLight,
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+
             ],
           ),
         ),

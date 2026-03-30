@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/widgets/Header.dart';
 import 'package:trucker_connect/widgets/custom_container.dart';
+import 'package:trucker_connect/widgets/custom_icon.dart';
 import '../../../core/theme.dart';
 
 class PaymentCard extends StatelessWidget {
@@ -28,16 +29,16 @@ class PaymentCard extends StatelessWidget {
 
     switch (status.toLowerCase()) {
       case 'paid':
-        statusBgColor = const Color(0xFFE8F5E9);
-        statusTextColor = const Color(0xFF4CAF50);
+        statusBgColor = const Color(0xFFDCFCE7);
+        statusTextColor = const Color(0xFF008236);
         break;
       case 'processing':
-        statusBgColor = const Color(0xFFE3F2FD);
-        statusTextColor = const Color(0xFF2196F3);
+        statusBgColor = const Color(0xFFDBEAFE);
+        statusTextColor = const Color(0xFF1447E6);
         break;
       case 'pending':
-        statusBgColor = const Color(0xFFFFF3E0);
-        statusTextColor = const Color(0xFFFFA726);
+        statusBgColor = const Color(0xFFFEF3C6);
+        statusTextColor = const Color(0xFFBB4D00);
         break;
       default:
         statusBgColor = Colors.grey.shade100;
@@ -54,15 +55,16 @@ class PaymentCard extends StatelessWidget {
               title: title,
               titleSize: 16,
               titleColor: AppTheme.primaryTeal,
+              titleFontWeight: FontWeight.w600,
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
 
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
                 color: statusBgColor,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
                 status,
@@ -74,20 +76,17 @@ class PaymentCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 12),
 
             Row(
               children: [
-                const Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 20,
-                  color: AppTheme.accentRed,
-                ),
+
+                CustomIcon(imagePath: 'assets/images/all/money.svg',size: 16,),
                 const SizedBox(width: 8),
                 Text(
                   amount
                       .replaceAll('-', '')
-                      .trim(), // Remove negative sign from display
+                      .trim(),
                   style: const TextStyle(
                     color: AppTheme.accentRed,
                     fontSize: 18,
@@ -97,15 +96,12 @@ class PaymentCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
 
             Row(
               children: [
-                const Icon(
-                  Icons.credit_card_outlined,
-                  size: 18,
-                  color: AppTheme.textLight,
-                ),
+                CustomIcon(imagePath: 'assets/images/all/ach.svg',size: 16,),
+
                 const SizedBox(width: 8),
 
                 Header(
@@ -115,15 +111,12 @@ class PaymentCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
 
             Row(
               children: [
-                const Icon(
-                  Icons.calendar_today_outlined,
-                  size: 18,
-                  color: AppTheme.textLight,
-                ),
+                CustomIcon(imagePath: 'assets/images/all/card.svg',size: 16,),
+
                 const SizedBox(width: 8),
                 Header(
                   subtitle: date,

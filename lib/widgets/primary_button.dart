@@ -1,8 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/core/theme.dart';
 import 'package:trucker_connect/widgets/Header.dart';
+
+import 'custom_icon.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -14,17 +15,26 @@ class PrimaryButton extends StatelessWidget {
   final bool isOutlined;
   final Color OutlineColor;
   final double width;
+  final IconData? icon;
+  final String? imagePath;
+  final Color? imageColor;
+ final MainAxisAlignment mainAxisAlignment;
+  
   const PrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor,
-    this.borderradius=14,
+    this.borderradius = 14,
     this.textColor,
     this.isLoading = false,
     this.isOutlined = false,
-    this.OutlineColor=Colors.white,
-    this.width=1.5,
+    this.OutlineColor = Colors.white,
+    this.width = 1.5,
+    this.icon,
+    this.imagePath,
+    this.imageColor,
+    this.mainAxisAlignment=MainAxisAlignment.center,
   });
 
   @override
@@ -50,12 +60,28 @@ class PrimaryButton extends StatelessWidget {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 )
-              : Header(
-                 title:  text,
-                  titleColor: textColor ??AppTheme.backgroundWhite,
-                  titleSize: 14,
+              : Padding(
+            padding: EdgeInsets.symmetric(horizontal: 13),
+                child: Row(
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: [
+                      if (icon != null) ...[
+                        Icon(icon, size: 20, color: textColor ?? AppTheme.backgroundWhite),
+                        const SizedBox(width: 8),
+                      ],
+                      if(imagePath!=null && imageColor!=null) ...[
+                        CustomIcon(imagePath: imagePath!, size: 16, color: imageColor)
 
-                ),
+                      ],
+                      SizedBox(width: 20,),
+                      Header(
+                        title: text,
+                        titleColor: textColor ?? AppTheme.backgroundWhite,
+                        titleSize: 14,
+                      ),
+                    ],
+                  ),
+              ),
         ),
       );
     }
@@ -81,7 +107,16 @@ class PrimaryButton extends StatelessWidget {
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               )
-            : Text(text),
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (icon != null) ...[
+                    Icon(icon, size: 20, color: textColor ?? Colors.white),
+                    const SizedBox(width: 8),
+                  ],
+                  Text(text),
+                ],
+              ),
       ),
     );
   }

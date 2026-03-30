@@ -37,18 +37,22 @@ class _DriverRegistrationScreenState extends State<DriverRegistrationScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      backgroundColor: AppTheme.backgroundWhite,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            const SliverAppBar(
+              forceMaterialTransparency: true,
+              elevation: 0,
+              floating: true,
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
               Header(title: 'Driver Registration',
                 subtitle: 'Create your driver account',
               fontFamily: 'Poppins',
@@ -107,7 +111,7 @@ class _DriverRegistrationScreenState extends State<DriverRegistrationScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Registration Successful!')),
                         );
-                        //  navigate to home screen here
+                         Navigator.pushReplacementNamed(context, RoutesName.drivermianScreen);
                       }
                     },
                   ),
@@ -124,8 +128,12 @@ class _DriverRegistrationScreenState extends State<DriverRegistrationScreen> {
                   );
                 },
               ),
-            ],
-          ),
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
+            ),
+          ],
         ),
       ),
     );

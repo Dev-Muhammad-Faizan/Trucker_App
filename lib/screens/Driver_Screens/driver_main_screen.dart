@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_docs_tab.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_home_tab.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_job_tab.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_payment_tab.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_profile_tab.dart';
+import 'package:trucker_connect/widgets/Header.dart';
+import 'package:trucker_connect/widgets/custom_icon.dart';
 import '../../core/theme.dart';
-import '../../widgets/custom_icon.dart';
-import 'broker_drivers_tab.dart';
-import 'broker_home_tab.dart';
-import 'broker_jobs_tab.dart';
-import 'broker_payments_tab.dart';
-import 'broker_profile_tab.dart';
-
-class BrokerMainScreen extends StatefulWidget {
-  const BrokerMainScreen({super.key});
+ class DriverMainScreen extends StatefulWidget {
+  const DriverMainScreen({super.key});
 
   @override
-  State<BrokerMainScreen> createState() => _BrokerMainScreenState();
+  State<DriverMainScreen> createState() => _DriverMainScreenState();
 }
 
-class _BrokerMainScreenState extends State<BrokerMainScreen> {
+class _DriverMainScreenState extends State<DriverMainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const BrokerHomeTab(),
-    const BrokerJobsTab(),
-    const BrokerDriversTab(),
-    const BrokerPaymentsTab(),
-    const BrokerProfileTab(),
+    const DriverHomeTab(),
+    const DriverJobTab(),
+    const DriverDocsTab(),
+    const DriverPaymentTab(),
+    const DriverProfileTab(),
   ];
 
   void _onItemTapped(int index) {
@@ -73,20 +73,20 @@ class _BrokerMainScreenState extends State<BrokerMainScreen> {
                 showSelectedLabels: true,
                 showUnselectedLabels: true,
                 selectedLabelStyle: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600
+                    fontFamily: 'Poppins',
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600
                 ),
                 unselectedLabelStyle: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400
+                    fontFamily: 'Poppins',
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400
                 ),
                 elevation: 0,
                 items: [
                   _buildNavItem('assets/images/navigation/home.svg', 'Home', 0),
                   _buildNavItem('assets/images/navigation/job.svg', 'Jobs', 1),
-                  _buildNavItem('assets/images/navigation/driver.svg', 'Drivers', 2),
+                  _buildNavItem('assets/images/navigation/doc.svg', 'Docs', 2),
                   _buildNavItem('assets/images/navigation/payment.svg', 'Payments', 3),
                   _buildNavItem('assets/images/navigation/profile.svg', 'Profile', 4),
                 ],
@@ -98,8 +98,7 @@ class _BrokerMainScreenState extends State<BrokerMainScreen> {
     );
   }
 
-  BottomNavigationBarItem _buildNavItem(
-    String imagePath, String label, int index) {
+  BottomNavigationBarItem _buildNavItem(String imagePath, String label, int index) {
     final isSelected = _selectedIndex == index;
 
     return BottomNavigationBarItem(

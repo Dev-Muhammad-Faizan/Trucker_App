@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trucker_connect/routes/routes_name.dart';
 import 'package:trucker_connect/widgets/Header.dart';
 import 'package:trucker_connect/widgets/custom_container.dart';
+import 'package:trucker_connect/widgets/custom_icon.dart';
 import 'package:trucker_connect/widgets/primary_button.dart';
 import '../../../core/theme.dart';
 
@@ -38,7 +39,15 @@ class DriverCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Header(imagePath: 'assets/images/person_icon.png', size: 64),
+                Header(
+                  imagePath: 'assets/images/navigation/profile.svg',
+                  backgroundSize: 64,
+                  size: 32,
+                  imageBackgroundColor: AppTheme.primaryTeal.withValues(
+                    alpha: 0.1,
+                  ),
+                  imagecolor: AppTheme.primaryTeal,
+                ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -68,16 +77,16 @@ class DriverCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            _buildInfoRow('assets/images/icon.png', truckInfo),
+            _buildInfoRow('assets/images/all/truck.svg', truckInfo),
             const SizedBox(height: 8),
             _buildInfoRow(
-              'assets/images/icon.png',
+              'assets/images/all/rating.svg',
               '$jobsCompleted  jobs completed',
             ),
             const SizedBox(height: 8),
-            _buildInfoRow('assets/images/icon.png', phone),
+            _buildInfoRow('assets/images/all/phone.svg', phone),
             const SizedBox(height: 8),
-            _buildInfoRow('assets/images/icon.png', email),
+            _buildInfoRow('assets/images/all/mail.svg', email),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -112,7 +121,7 @@ class DriverCard extends StatelessWidget {
   Widget _buildInfoRow(String image, String text) {
     return Row(
       children: [
-        Header(imagePath: image, size: 16),
+        CustomIcon(imagePath: image,size: 16,color: AppTheme.textLight,),
         const SizedBox(width: 8),
         Header(
           subtitle: text,

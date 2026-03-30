@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/routes/routes_name.dart';
+import 'package:trucker_connect/screens/Driver_Screens/accept_job.dart';
+import 'package:trucker_connect/screens/Driver_Screens/driver_job_details.dart';
+import 'package:trucker_connect/screens/Driver_Screens/notification_screen.dart';
 import 'package:trucker_connect/screens/broker/create_job.dart';
 import 'package:trucker_connect/screens/broker/driver_review.dart';
 import 'package:trucker_connect/screens/broker/job_detail.dart';
 import 'package:trucker_connect/screens/broker/record_payment.dart';
 
+import '../screens/Driver_Screens/driver_main_screen.dart';
 import '../screens/login/broker_registration_screen.dart';
 import '../screens/login/driver_registration_screen.dart';
 import '../screens/login/forgot_password_screen.dart';
@@ -34,17 +38,30 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const ForgotPasswordScreen());
       case RoutesName.brokerMainScreen:
         return MaterialPageRoute(builder: (_) => const BrokerMainScreen());
-
+      case RoutesName.drivermianScreen:
+        return MaterialPageRoute(builder: (_) => const DriverMainScreen());
+      case RoutesName.notificationScreen:
+        return MaterialPageRoute(builder: (_) => const NotificationScreen());
       case RoutesName.createJob:
         return MaterialPageRoute(builder: (_) => const CreateJob());
       case RoutesName.recordPayment:
         return MaterialPageRoute(builder: (_) => const RecordPayment());
       case RoutesName.driverReview:
         final driverId = settings.arguments as String? ?? '';
-        return MaterialPageRoute(builder: (_) => DriverReview(driverId: driverId));
+        return MaterialPageRoute(
+          builder: (_) => DriverReview(driverId: driverId),
+        );
       case RoutesName.jobDetail:
         final job = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(builder: (_) => JobDetail(job: job));
+      case RoutesName.driverjobdetails:
+        final job = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(builder: (_) =>  DriverJobDetails(job: job,));
+      case RoutesName.acceptjob:
+        final job = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(builder: (_) => AcceptJob(job: job));
+
+
       default:
         return MaterialPageRoute(
           builder: (_) {

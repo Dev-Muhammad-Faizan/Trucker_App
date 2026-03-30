@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:trucker_connect/widgets/Header.dart';
+
 import '../../core/theme.dart';
 import '../../routes/routes_name.dart';
+import '../../widgets/Header.dart';
 import '../../widgets/broker/payment_card.dart';
 import '../../widgets/primary_button.dart';
+class DriverPaymentTab extends StatefulWidget {
+  const DriverPaymentTab({super.key});
 
-class BrokerPaymentsTab extends StatelessWidget {
-  const BrokerPaymentsTab({super.key});
+  @override
+  State<DriverPaymentTab> createState() => _DriverPaymentTabState();
+}
 
+class _DriverPaymentTabState extends State<DriverPaymentTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,22 +51,12 @@ class BrokerPaymentsTab extends StatelessWidget {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  _buildStatCard('Total Paid', '\$3,000'),
+                  _buildStatCard('Total Earn', '\$3,000'),
                   const SizedBox(width: 16),
                   _buildStatCard('Pending', '\$5,500'),
                 ],
               ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: PrimaryButton(
-                  text: '+   Record Payment',
-                  backgroundColor: AppTheme.accentRed,
-                  onPressed: () {
-                     Navigator.pushNamed(context, RoutesName.recordPayment);
-                  },
-                ),
-              ),
+
             ],
           ),
         ),
@@ -74,7 +69,7 @@ class BrokerPaymentsTab extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         decoration: BoxDecoration(
-          color:AppTheme.backgroundWhite.withValues(alpha: 0.1),
+          color: Colors.white.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -148,7 +143,7 @@ class BrokerPaymentsTab extends StatelessWidget {
           method: 'ACH Transfer',
           date: 'March 14, 2026',
         ),
-        SizedBox(height: 90), // Added bottom padding for nav bar
+        SizedBox(height: 90),
       ],
     );
   }

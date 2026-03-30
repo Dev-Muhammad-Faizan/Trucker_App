@@ -35,11 +35,10 @@ class _BrokerRegistrationScreenState extends State<BrokerRegistrationScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: AppTheme.backgroundWhite,
+
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,21 +46,7 @@ class _BrokerRegistrationScreenState extends State<BrokerRegistrationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Text(
-              //   'Broker Registration',
-              //   style: TextStyle(color: AppTheme.primaryTeal,fontSize: 30,
-              //     fontFamily: 'Poppins',
-              //     fontWeight: FontWeight.w700,
-              //   ),
-              // ),
-              // const SizedBox(height: 8),
-              // Text(
-              //   'Create your broker account',
-              //   style: TextStyle(color: AppTheme.textLight,fontSize: 16,
-              //     fontFamily: 'Poppins',
-              //     fontWeight: FontWeight.w400,
-              //   ),
-              // ),
+
               Header(
                 title: 'Broker Registration',
                 subtitle: 'Create your broker account',

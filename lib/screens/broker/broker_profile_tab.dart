@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trucker_connect/routes/routes_name.dart';
 import 'package:trucker_connect/widgets/broker/row_header.dart';
-import 'package:trucker_connect/widgets/broker/settings_option.dart';
 import 'package:trucker_connect/widgets/custom_container.dart';
 import '../../core/theme.dart';
 import '../../widgets/Header.dart';
@@ -26,7 +25,15 @@ class BrokerProfileTab extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Header(imagePath: 'assets/images/profile.png', size: 80),
+                  Header(
+                    imagePath: 'assets/images/all/company.svg',
+                    imagecolor: AppTheme.backgroundWhite,
+                    size: 40,
+                    backgroundSize: 80,
+                    imageBackgroundColor: AppTheme.backgroundWhite.withValues(
+                      alpha: 0.2,
+                    ),
+                  ),
                   const SizedBox(width: 20),
                   Expanded(
                     child: Column(
@@ -75,21 +82,21 @@ class BrokerProfileTab extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const RowHeader(
-                      icon: Icons.email_outlined,
+                      imagePath: 'assets/images/all/mail.svg',
                       iconColor: AppTheme.primaryTeal,
                       title: 'Email',
                       subtitle: 'contact@logisticsinc.com',
                     ),
                     const SizedBox(height: 12),
                     const RowHeader(
-                      icon: Icons.phone_outlined,
+                      imagePath: 'assets/images/all/phone.svg',
                       iconColor: AppTheme.primaryTeal,
                       title: 'Phone',
                       subtitle: '(555) 987-6543',
                     ),
                     const SizedBox(height: 12),
                     const RowHeader(
-                      icon: Icons.location_on_outlined,
+                      imagePath: 'assets/images/all/location.svg',
                       iconColor: AppTheme.primaryTeal,
                       title: 'Location',
                       subtitle: 'Dallas, TX',
@@ -98,7 +105,6 @@ class BrokerProfileTab extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-
 
               CustomContainer(
                 child: Column(
@@ -156,20 +162,20 @@ class BrokerProfileTab extends StatelessWidget {
                       titleFontWeight: FontWeight.w700,
                     ),
                     const SizedBox(height: 16),
-                    SettingsOption(
-                      icon: Icons.business_outlined,
+                    _setting(
+                      imagepath: 'assets/images/all/company.svg',
                       title: 'Edit Company Profile',
                       onTap: () {},
                     ),
                     const SizedBox(height: 8),
-                    SettingsOption(
-                      icon: Icons.notifications_none_outlined,
+                    _setting(
+                      imagepath: 'assets/images/all/mail.svg',
                       title: 'Notification Settings',
                       onTap: () {},
                     ),
                     const SizedBox(height: 8),
-                    SettingsOption(
-                      icon: Icons.phone_outlined,
+                    _setting(
+                      imagepath: 'assets/images/all/phone.svg',
                       title: 'Update Contact Info',
                       onTap: () {},
                     ),
@@ -183,11 +189,9 @@ class BrokerProfileTab extends StatelessWidget {
                   horizontal: 20,
                   vertical: 16,
                 ),
-                backgroundColor: AppTheme.textLight.withValues(
-                  alpha: 0.1,
-                ),
+                backgroundColor: AppTheme.lightGrey.withValues(alpha: 0.5),
                 child: const RowHeader(
-                  icon: Icons.calendar_today_outlined,
+                  imagePath: 'assets/images/all/card.svg',
                   iconColor: AppTheme.textLight,
                   title: 'Member Since',
                   subtitle: 'March 2024',
@@ -195,16 +199,18 @@ class BrokerProfileTab extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-
               PrimaryButton(
                 text: 'Sign Out',
                 textColor: AppTheme.accentRed,
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, RoutesName.loginScreen, (route) => false);
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.loginScreen,
+                    // (route) => true,
+                  );
                 },
                 isOutlined: true,
                 OutlineColor: AppTheme.inputBorder,
-
               ),
               const SizedBox(height: 50),
             ],
@@ -214,13 +220,29 @@ class BrokerProfileTab extends StatelessWidget {
     );
   }
 
+  Widget _setting({
+    required imagepath,
+    required title,
+    required onTap,
+    Color? imageColor,
+  }) {
+    return PrimaryButton(
+      mainAxisAlignment: MainAxisAlignment.start,
+      isOutlined: true,
+      OutlineColor: AppTheme.inputBorder,
+      imagePath: imagepath,
+      imageColor: imageColor ?? AppTheme.primaryTeal,
+      backgroundColor: AppTheme.backgroundWhite,
+      textColor: AppTheme.primaryTeal,
+      text: title,
+      onPressed: onTap,
+    );
+  }
+
   Widget _buildStatCard(String label, String value, {Color? valueColor}) {
-    return Container(
+    return CustomContainer(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-      decoration: BoxDecoration(
-        color: AppTheme.textLight.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
-      ),
+      backgroundColor: AppTheme.lightGrey.withValues(alpha: 0.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
